@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cricket Game</title>
+  
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-image: url(https://images.pexels.com/photos/1252890/pexels-photo-1252890.jpeg?cs=srgb&dl=pexels-krisof-1252890.jpg&fm=jpg);
+      background-position: center;
+      background-size: cover;
+    }
+
+    .btn {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 20px;
+      color: white;
+      background-color: green;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: darkgreen;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    h1{
+      color: white;
+    }
+
+    .win { color: white }  /* Green */
+    .lose { color: white } /* Red */
+    .tie { color: white }  /* Blue */
+
+  </style>
+</head>
+<body>
+  <h1>Bat Ball Stump Game</h1>
+
+  <button class="btn" onclick="playGame('Bat')">Bat</button>
+  <button class="btn" onclick="playGame('Ball')">Ball</button>
+  <button class="btn" onclick="playGame('Stump')">Stump</button>
+
+  <p id="result"></p> <!-- Result Display -->
+
+  <script>
+    function playGame(userChoice) {
+      console.log(`You chose: ${userChoice}`);
+
+      let choices = ['Bat', 'Ball', 'Stump'];
+      let randomIndex = Math.floor(Math.random() * 3);
+      let computerChoice = choices[randomIndex];
+
+      console.log(`Computer chose: ${computerChoice}`);
+
+      let resultElement = document.getElementById('result');
+      let resultMessage = getWinner(userChoice, computerChoice);
+
+      // Apply different colors based on the result
+      resultElement.innerHTML = resultMessage.text;
+      resultElement.className = resultMessage.class; // Apply class for color
+    }
+
+    function getWinner(user, computer) {
+      if (user === computer) {
+        return { text: "🤝 It's a Tie!", class: "tie" };
+      } 
+      else if (
+        (user === 'Bat' && computer === 'Stump') || 
+        (user === 'Ball' && computer === 'Bat') || 
+        (user === 'Stump' && computer === 'Ball')
+      ) {
+        return { text: "🎉 You Win! 🏆", class: "win" };
+      } 
+      else {
+        return { text: "😔 Computer Wins! Try Again!", class: "lose" };
+      }
+    }
+  </script>
+
+</body>
+</html>
